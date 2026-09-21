@@ -25,16 +25,16 @@
     /* CONTAINER KHUSUS MOBILE */
     .app-screen {
       width: 100%;
-      max-width: 430px; /* Ukuran standar layar smartphone */
+      max-width: 430px;
       min-height: 100vh;
       background-color: #141414;
       position: relative;
-      padding-bottom: 75px; /* Ruang untuk bottom bar */
+      padding-bottom: 75px;
       box-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
       overflow-x: hidden;
     }
 
-    /* HEADER MOBILE */
+    /* HEADER */
     .top-bar {
       position: absolute;
       top: 0;
@@ -65,7 +65,7 @@
       color: #fff;
     }
 
-    /* KATEGORI PILL / TABS KHAS HP */
+    /* KATEGORI */
     .category-pills {
       position: absolute;
       top: 54px;
@@ -84,7 +84,7 @@
       cursor: pointer;
     }
 
-    /* BANNER UTAMA (POSTER VERTIKAL MOBILE) */
+    /* BANNER UTAMA */
     .spotlight {
       position: relative;
       width: 100%;
@@ -138,13 +138,10 @@
       border-radius: 4px;
       font-weight: 700;
       font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
       cursor: pointer;
     }
 
-    /* KELOMPOK FILM (HORISONTAL SCROLL) */
+    /* KONTEN FILM */
     .section-block {
       padding: 16px 0 6px 14px;
     }
@@ -161,7 +158,7 @@
       gap: 8px;
       overflow-x: auto;
       padding-right: 14px;
-      scrollbar-width: none; /* Hilangkan scrollbar */
+      scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
     }
 
@@ -184,7 +181,7 @@
       object-fit: cover;
     }
 
-    /* BOTTOM NAV BAR (KHAS APLIKASI HP) */
+    /* BOTTOM NAV BAR */
     .bottom-bar {
       position: fixed;
       bottom: 0;
@@ -219,7 +216,7 @@
       fill: currentColor;
     }
 
-    /* POP-UP MODAL (AMAN ADBLOCK & PAS UNTUK HP) */
+    /* POP-UP MODAL (AMAN DARI ADBLOCK) */
     .notice-layer {
       position: fixed;
       top: 0;
@@ -275,24 +272,80 @@
       transition: all 0.3s;
     }
 
-    .btn-dismiss.active {
-      background-color: #e50914;
-      color: #ffffff;
-      border-color: #e50914;
-      cursor: pointer;
-    }
-
+    /* ============================================================ */
+    /* DESAIN GAMBAR: KOLASE FILM + VOUCHER SHOPEE GRATIS */
+    /* ============================================================ */
     .notice-picture {
       width: 100%;
-      height: 170px;
-      background-color: #000;
+      height: 185px;
+      position: relative;
+      overflow: hidden;
+      background-color: #0b0b0b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .notice-picture img {
+    /* Background 3 Poster Film */
+    .film-collage {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
+      display: flex;
+      gap: 2px;
+      opacity: 0.45; /* Redup agar tulisan voucher menonjol */
+      filter: blur(0.5px);
+    }
+
+    .film-collage img {
+      width: 33.33%;
       height: 100%;
       object-fit: cover;
     }
+
+    /* Kartu Voucher Shopee Mengambang */
+    .voucher-card {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      background: linear-gradient(135deg, #ee4d2d 0%, #ff6633 100%);
+      border-radius: 8px;
+      padding: 12px 14px;
+      box-shadow: 0 8px 20px rgba(238, 77, 45, 0.5);
+      border: 1.5px dashed rgba(255, 255, 255, 0.8);
+      text-align: center;
+    }
+
+    .voucher-card-badge {
+      display: inline-block;
+      background: #ffffff;
+      color: #ee4d2d;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 5px;
+    }
+
+    .voucher-card-title {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .voucher-card-sub {
+      color: #ffe6e0;
+      font-size: 11px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+    /* ============================================================ */
 
     .notice-body {
       padding: 14px 16px 16px;
@@ -301,21 +354,21 @@
 
     .notice-body h2 {
       font-size: 16px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       color: #fff;
     }
 
     .notice-body p {
       font-size: 12px;
       color: #aaa;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       line-height: 1.4;
     }
 
     .btn-action {
       display: block;
       width: 100%;
-      background-color: #ee4d2d; /* Oranye Shopee */
+      background-color: #ee4d2d;
       color: #ffffff;
       padding: 10px 0;
       border-radius: 6px;
@@ -331,18 +384,33 @@
   <div id="noticeModal" class="notice-layer">
     <div class="notice-wrapper">
       <div class="notice-head">
-        <span class="notice-label">Promo Spesial</span>
+        <span class="notice-label">Promo Nonton</span>
         <button id="dismissBtn" type="button" class="btn-dismiss" disabled>
           Tutup, Untuk Lanjut ke film (<span id="countNum">5</span>s)
         </button>
       </div>
+
+      <!-- VISUAL BARU: KOLASE KUMPULAN FILM + VOUCHER SHOPEE GRATIS -->
       <div class="notice-picture">
-        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=600&auto=format&fit=crop" alt="Promo">
+        <!-- Kolase Kumpulan Film di Latar Belakang -->
+        <div class="film-collage">
+          <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300&auto=format&fit=crop" alt="Film 1">
+          <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=300&auto=format&fit=crop" alt="Film 2">
+          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop" alt="Film 3">
+        </div>
+
+        <!-- Tiket Voucher Shopee Gratis di Bagian Depan -->
+        <div class="voucher-card">
+          <div class="voucher-card-badge">VOUCHER EKSKLUSIF</div>
+          <div class="voucher-card-title">GRATIS ONGKIR & DISKON Rp50.000</div>
+          <div class="voucher-card-sub">Khusus Pengunjung kumpulanfilm21</div>
+        </div>
       </div>
+
       <div class="notice-body">
-        <h2>Klaim Gratis Ongkir Hari Ini!</h2>
-        <p>Dapatkan diskon potongan belanja dan cashback eksklusif sekarang.</p>
-        <a href="https://s.shopee.co.id/3LR08zN5I0" target="_blank" class="btn-action">Buka Shopee</a>
+        <h2>Klaim Voucher Belanja Shopee!</h2>
+        <p>Sedang menghubungkan ke voucher gratis ongkir Anda...</p>
+        <a href="https://s.shopee.co.id/3LR08zN5I0" class="btn-action">Klaim Voucher Sekarang</a>
       </div>
     </div>
   </div>
@@ -420,35 +488,26 @@
     </nav>
   </main>
 
-  <!-- LOGIKA HITUNG MUNDUR & REDIRECT -->
+  <!-- LOGIKA: HITUNGAN DARI 5s, OTOMATIS REDIRECT DI DETIK 3 -->
   <script>
     let remainingTime = 5;
     const countDisplay = document.getElementById("countNum");
-    const dismissButton = document.getElementById("dismissBtn");
-    const noticeModal = document.getElementById("noticeModal");
     const redirectUrl = "https://s.shopee.co.id/3LR08zN5I0";
 
-    // Hitung mundur 10 detik
-    const timerInterval = setInterval(() => {
+    const countdown = setInterval(() => {
       remainingTime--;
 
-      if (remainingTime > 0) {
+      // Update angka di tombol
+      if (countDisplay) {
         countDisplay.textContent = remainingTime;
-      } else {
-        clearInterval(timerInterval);
-        dismissButton.disabled = false;
-        dismissButton.classList.add("active");
-        dismissButton.innerHTML = "Tutup, Untuk Lanjut ke film ✕";
+      }
+
+      // Begitu menyentuh detik ke-3, langsung otomatis redirect
+      if (remainingTime <= 3) {
+        clearInterval(countdown);
+        window.location.href = redirectUrl;
       }
     }, 1000);
-
-    // Saat tombol Tutup diklik -> Buka Shopee & Tutup Pop-up
-    dismissButton.addEventListener("click", () => {
-      if (remainingTime <= 0) {
-        window.open(redirectUrl, "_blank");
-        noticeModal.style.display = "none";
-      }
-    });
   </script>
 </body>
 </html>
