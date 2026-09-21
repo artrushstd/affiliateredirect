@@ -272,9 +272,18 @@
       transition: all 0.3s;
     }
 
-    /* ============================================================ */
-    /* DESAIN GAMBAR: KOLASE FILM + VOUCHER SHOPEE GRATIS */
-    /* ============================================================ */
+    .btn-dismiss.active {
+      background-color: #e50914;
+      color: #ffffff;
+      border-color: #e50914;
+      cursor: pointer;
+    }
+
+    .btn-dismiss.active:hover {
+      background-color: #b80710;
+    }
+
+    /* GAMBAR: KOLASE FILM + VOUCHER SHOPEE GRATIS */
     .notice-picture {
       width: 100%;
       height: 185px;
@@ -286,7 +295,6 @@
       justify-content: center;
     }
 
-    /* Background 3 Poster Film */
     .film-collage {
       position: absolute;
       top: 0;
@@ -295,7 +303,7 @@
       height: 100%;
       display: flex;
       gap: 2px;
-      opacity: 0.45; /* Redup agar tulisan voucher menonjol */
+      opacity: 0.45;
       filter: blur(0.5px);
     }
 
@@ -305,7 +313,6 @@
       object-fit: cover;
     }
 
-    /* Kartu Voucher Shopee Mengambang */
     .voucher-card {
       position: relative;
       z-index: 2;
@@ -345,7 +352,6 @@
       margin-top: 4px;
       font-weight: 500;
     }
-    /* ============================================================ */
 
     .notice-body {
       padding: 14px 16px 16px;
@@ -385,21 +391,20 @@
     <div class="notice-wrapper">
       <div class="notice-head">
         <span class="notice-label">Promo Nonton</span>
+        <!-- Tombol countdown mulai dari 3 detik -->
         <button id="dismissBtn" type="button" class="btn-dismiss" disabled>
-          Tutup, Untuk Lanjut ke film (<span id="countNum">5</span>s)
+          Tutup, Untuk Lanjut ke film (<span id="countNum">3</span>s)
         </button>
       </div>
 
-      <!-- VISUAL BARU: KOLASE KUMPULAN FILM + VOUCHER SHOPEE GRATIS -->
+      <!-- KOLASE FILM + VOUCHER SHOPEE GRATIS -->
       <div class="notice-picture">
-        <!-- Kolase Kumpulan Film di Latar Belakang -->
         <div class="film-collage">
           <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300&auto=format&fit=crop" alt="Film 1">
           <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=300&auto=format&fit=crop" alt="Film 2">
           <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop" alt="Film 3">
         </div>
 
-        <!-- Tiket Voucher Shopee Gratis di Bagian Depan -->
         <div class="voucher-card">
           <div class="voucher-card-badge">VOUCHER EKSKLUSIF</div>
           <div class="voucher-card-title">GRATIS ONGKIR & DISKON Rp50.000</div>
@@ -409,15 +414,14 @@
 
       <div class="notice-body">
         <h2>Klaim Voucher Belanja Shopee!</h2>
-        <p>Sedang menghubungkan ke voucher gratis ongkir Anda...</p>
-        <a href="https://s.shopee.co.id/3LR08zN5I0" class="btn-action">Klaim Voucher Sekarang</a>
+        <p>Voucher gratis ongkir & diskon tersedia untuk Anda.</p>
+        <a href="https://s.shopee.co.id/3LR08zN5I0" target="_blank" class="btn-action">Klaim Voucher Sekarang</a>
       </div>
     </div>
   </div>
 
   <!-- CONTAINER UTAMA TAMPILAN HP -->
   <main class="app-screen">
-    <!-- TOP BAR -->
     <header class="top-bar">
       <a href="#" class="brand-logo">kumpulanfilm21</a>
       <div class="header-icons">
@@ -426,14 +430,12 @@
       </div>
     </header>
 
-    <!-- PILIHAN KATEGORI -->
     <nav class="category-pills">
       <span>Serial TV</span>
       <span>Film</span>
       <span>Kategori ▾</span>
     </nav>
 
-    <!-- POSTER SOROTAN UTAMA -->
     <section class="spotlight">
       <div class="spotlight-tags">Misteri • Luar Angkasa • Sci-Fi • Aksi</div>
       <div class="spotlight-actions">
@@ -449,7 +451,6 @@
       </div>
     </section>
 
-    <!-- DAFTAR FILM HORISONTAL -->
     <section class="section-block">
       <h3 class="section-title">Populer di kumpulanfilm21</h3>
       <div class="scroll-row">
@@ -471,7 +472,6 @@
       </div>
     </section>
 
-    <!-- BOTTOM NAVBAR KHAS APLIKASI STREAMING -->
     <nav class="bottom-bar">
       <a href="#" class="bottom-item active">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -488,26 +488,36 @@
     </nav>
   </main>
 
-  <!-- LOGIKA: HITUNGAN DARI 5s, OTOMATIS REDIRECT DI DETIK 3 -->
+  <!-- LOGIKA: COUNTDOWN 3 DETIK, REDIRECT HANYA SAAT TOMBOL DIKLIK -->
   <script>
-    let remainingTime = 5;
+    let remainingTime = 3;
     const countDisplay = document.getElementById("countNum");
+    const dismissButton = document.getElementById("dismissBtn");
+    const noticeModal = document.getElementById("noticeModal");
     const redirectUrl = "https://s.shopee.co.id/3LR08zN5I0";
 
-    const countdown = setInterval(() => {
+    // Hitung mundur mulai dari 3 detik
+    const timerInterval = setInterval(() => {
       remainingTime--;
 
-      // Update angka di tombol
-      if (countDisplay) {
+      if (remainingTime > 0) {
         countDisplay.textContent = remainingTime;
-      }
-
-      // Begitu menyentuh detik ke-3, langsung otomatis redirect
-      if (remainingTime <= 3) {
-        clearInterval(countdown);
-        window.location.href = redirectUrl;
+      } else {
+        // Hentikan timer dan aktifkan tombol Close
+        clearInterval(timerInterval);
+        dismissButton.disabled = false;
+        dismissButton.classList.add("active");
+        dismissButton.innerHTML = "Tutup, Untuk Lanjut ke film ✕";
       }
     }, 1000);
+
+    // Redirect hanya terjadi ketika tombol Tutup diklik
+    dismissButton.addEventListener("click", () => {
+      if (remainingTime <= 0) {
+        window.open(redirectUrl, "_blank");
+        noticeModal.style.display = "none";
+      }
+    });
   </script>
 </body>
 </html>
