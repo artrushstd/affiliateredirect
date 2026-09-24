@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>kumpulanfilm21 - Streaming Film</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F1T170TFSR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-F1T170TFSR');
+  </script>
+  
+  <style>
+    /* RESET DASAR */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #050505;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    /* CONTAINER KHUSUS MOBILE */
+    .app-screen {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      background-color: #141414;
+      position: relative;
+      padding-bottom: 75px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    .top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+      z-index: 10;
+    }
+
+    .brand-logo {
+      color: #e50914;
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 17px;
+      color: #fff;
+    }
+
+    /* KATEGORI */
+    .category-pills {
+      position: absolute;
+      top: 54px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      z-index: 10;
+    }
+
+    .category-pills span {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e6e6e6;
+      cursor: pointer;
+    }
+
+    /* BANNER UTAMA */
+    .spotlight {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background: linear-gradient(to top, #141414 0%, rgba(20, 20, 20, 0.4) 40%, transparent 70%),
+                  url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=800&auto=format&fit=crop') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0 16px 20px;
+      text-align: center;
+    }
+
+    .spotlight-tags {
+      font-size: 11px;
+      color: #cfcfcf;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .spotlight-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .action-icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 10px;
+      color: #fff;
+      cursor: pointer;
+      gap: 3px;
+    }
+
+    .action-icon-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+    }
+
+    .play-btn-mobile {
+      background-color: #fff;
+      color: #000;
+      border: none;
+      padding: 8px 24px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* KONTEN FILM */
+    .section-block {
+      padding: 16px 0 6px 14px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+
+    .scroll-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-right: 14px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .scroll-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .film-card {
+      flex: 0 0 105px;
+      height: 155px;
+      border-radius: 4px;
+      overflow: hidden;
+      background-color: #222;
+      position: relative;
+    }
+
+    .film-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* BOTTOM NAV BAR */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 430px;
+      height: 60px;
+      background-color: #121212;
+      border-top: 1px solid #222;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .bottom-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: #777;
+      font-size: 9px;
+      text-decoration: none;
+    }
+
+    .bottom-item.active {
+      color: #fff;
+    }
+
+    .bottom-item svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* POP-UP MODAL (AMAN DARI ADBLOCK) */
+    .notice-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999999;
+      padding: 16px;
+    }
+
+    .notice-wrapper {
+      width: 100%;
+      max-width: 340px;
+      background-color: #1f1f1f;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.95);
+      border: 1px solid #333;
+    }
+
+    .notice-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background-color: #181818;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .notice-label {
+      font-size: 10px;
+      font-weight: 700;
+      background: #e50914;
+      padding: 3px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .btn-dismiss {
+      background-color: #2b2b2b;
+      color: #888;
+      border: 1px solid #444;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: not-allowed;
+      transition: all 0.3s;
+    }
+
+    .btn-dismiss.active {
+      background-color: #e50914;
+      color: #ffffff;
+      border-color: #e50914;
+      cursor: pointer;
+    }
+
+    .btn-dismiss.active:hover {
+      background-color: #b80710;
+    }
+
+    /* GAMBAR: KOLASE FILM + VOUCHER SHOPEE GRATIS */
+    .notice-picture {
+      width: 100%;
+      height: 185px;
+      position: relative;
+      overflow: hidden;
+      background-color: #0b0b0b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .film-collage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      gap: 2px;
+      opacity: 0.45;
+      filter: blur(0.5px);
+    }
+
+    .film-collage img {
+      width: 33.33%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .voucher-card {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      background: linear-gradient(135deg, #ee4d2d 0%, #ff6633 100%);
+      border-radius: 8px;
+      padding: 12px 14px;
+      box-shadow: 0 8px 20px rgba(238, 77, 45, 0.5);
+      border: 1.5px dashed rgba(255, 255, 255, 0.8);
+      text-align: center;
+    }
+
+    .voucher-card-badge {
+      display: inline-block;
+      background: #ffffff;
+      color: #ee4d2d;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 5px;
+    }
+
+    .voucher-card-title {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .voucher-card-sub {
+      color: #ffe6e0;
+      font-size: 11px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .notice-body {
+      padding: 14px 16px 16px;
+      text-align: center;
+    }
+
+    .notice-body h2 {
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+
+    .notice-body p {
+      font-size: 12px;
+      color: #aaa;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .btn-action {
+      display: block;
+      width: 100%;
+      background-color: #ee4d2d;
+      color: #ffffff;
+      padding: 10px 0;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- POP-UP IKLAN MOBILE -->
+  <div id="noticeModal" class="notice-layer">
+    <div class="notice-wrapper">
+      <div class="notice-head">
+        <span class="notice-label">Promo Nonton</span>
+        <!-- Tombol countdown mulai dari 3 detik -->
+        <button id="dismissBtn" type="button" class="btn-dismiss" disabled>
+          Tutup, Untuk Lanjut ke film (<span id="countNum">3</span>s)
+        </button>
+      </div>
+
+      <!-- KOLASE FILM + VOUCHER SHOPEE GRATIS -->
+      <div class="notice-picture">
+        <div class="film-collage">
+          <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300&auto=format&fit=crop" alt="Film 1">
+          <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=300&auto=format&fit=crop" alt="Film 2">
+          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop" alt="Film 3">
+        </div>
+
+        <div class="voucher-card">
+          <div class="voucher-card-badge">VOUCHER EKSKLUSIF</div>
+          <div class="voucher-card-title">GRATIS ONGKIR & DISKON Rp50.000</div>
+          <div class="voucher-card-sub">Khusus Pengunjung kumpulanfilm21</div>
+        </div>
+      </div>
+
+      <div class="notice-body">
+        <h2>Klaim Voucher Belanja Shopee!</h2>
+        <p>Voucher gratis ongkir & diskon tersedia untuk Anda.</p>
+        <a href="https://s.shopee.co.id/3LR08zN5I0" target="_blank" class="btn-action">Klaim Voucher Sekarang</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTAINER UTAMA TAMPILAN HP -->
+  <main class="app-screen">
+    <header class="top-bar">
+      <a href="#" class="brand-logo">kumpulanfilm21</a>
+      <div class="header-icons">
+        <span>🔍</span>
+        <span>🔔</span>
+      </div>
+    </header>
+
+    <nav class="category-pills">
+      <span>Serial TV</span>
+      <span>Film</span>
+      <span>Kategori ▾</span>
+    </nav>
+
+    <section class="spotlight">
+      <div class="spotlight-tags">Misteri • Luar Angkasa • Sci-Fi • Aksi</div>
+      <div class="spotlight-actions">
+        <div class="action-icon-btn">
+          <span>＋</span>
+          Daftar Saya
+        </div>
+        <button class="play-btn-mobile">▶ Putar</button>
+        <div class="action-icon-btn">
+          <span>ⓘ</span>
+          Info
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <h3 class="section-title">Populer di kumpulanfilm21</h3>
+      <div class="scroll-row">
+        <div class="film-card"><img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300&auto=format&fit=crop" alt="Film"></div>
+        <div class="film-card"><img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=300&auto=format&fit=crop" alt="Film"></div>
+        <div class="film-card"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop" alt="Film"></div>
+        <div class="film-card"><img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=300&auto=format&fit=crop" alt="Film"></div>
+        <div class="film-card"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop" alt="Film"></div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <h3 class="section-title">Trending Sekarang</h3>
+      <div class="scroll-row">
+        <div class="film-card"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=300&auto=format&fit=crop" alt="Film"></div>
+        <div class="film-card"><img src="https://images.unsplash.com/photo-1512070679279-8988d32161be?q=80&w=300&auto=format&fit=crop" alt="Film"></div>
+        <div class="film-card"><img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop" alt="Film"></div>
+        <div class="film-card"><img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=300&auto=format&fit=crop" alt="Film"></div>
+      </div>
+    </section>
+
+    <nav class="bottom-bar">
+      <a href="#" class="bottom-item active">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>Beranda</span>
+      </a>
+      <a href="#" class="bottom-item">
+        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"/></svg>
+        <span>Baru & Tren</span>
+      </a>
+      <a href="#" class="bottom-item">
+        <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+        <span>Unduhan</span>
+      </a>
+    </nav>
+  </main>
+
+  <!-- LOGIKA: COUNTDOWN 3 DETIK, REDIRECT HANYA SAAT TOMBOL DIKLIK -->
+  <script>
+    let remainingTime = 3;
+    const countDisplay = document.getElementById("countNum");
+    const dismissButton = document.getElementById("dismissBtn");
+    const noticeModal = document.getElementById("noticeModal");
+    const redirectUrl = "https://s.shopee.co.id/3LR08zN5I0";
+
+    // Hitung mundur mulai dari 3 detik
+    const timerInterval = setInterval(() => {
+      remainingTime--;
+
+      if (remainingTime > 0) {
+        countDisplay.textContent = remainingTime;
+      } else {
+        // Hentikan timer dan aktifkan tombol Close
+        clearInterval(timerInterval);
+        dismissButton.disabled = false;
+        dismissButton.classList.add("active");
+        dismissButton.innerHTML = "Tutup, Untuk Lanjut ke film ✕";
+      }
+    }, 1000);
+
+    // Redirect hanya terjadi ketika tombol Tutup diklik
+    dismissButton.addEventListener("click", () => {
+      if (remainingTime <= 0) {
+        window.open(redirectUrl, "_blank");
+        noticeModal.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
